@@ -2,12 +2,12 @@
 export PROJECT_NAME ?= squid
 ORG_NAME ?= dockerproductionaws
 REPO_NAME ?= squid
-DOCKER_REGISTRY ?= xxxxxxxxxxxx.dkr.ecr.us-west-2.amazonaws.com
-AWS_ACCOUNT_ID ?= xxxxxxxxxxxx
+DOCKER_REGISTRY ?= 398099758646.dkr.ecr.ap-northeast-1.amazonaws.com
+AWS_ACCOUNT_ID ?= 398099758646
 DOCKER_LOGIN_EXPRESSION ?= $$(aws ecr get-login --registry-ids $(AWS_ACCOUNT_ID) --no-include-email)
 
 # Release settings
-export SQUID_WHITELIST ?= 
+export SQUID_WHITELIST ?=
 export NO_WHITELIST ?= false
 
 # Common settings
@@ -49,7 +49,7 @@ clean:
 #   <git commit hash>
 #   <git tag> (if a tag exists on the current commit)
 tag: TAGS ?= $(if $(ARGS),$(ARGS),latest $(APP_VERSION) $(COMMIT_HASH) $(COMMIT_TAG))
-tag: 
+tag:
 	${INFO} "Tagging release image with tags $(TAGS)..."
 	@ $(foreach tag,$(TAGS),$(call tag_image,$(RELEASE_ARGS),squid,$(DOCKER_REGISTRY)/$(ORG_NAME)/$(REPO_NAME):$(tag));)
 	${INFO} "Tagging complete"
